@@ -19,7 +19,7 @@ int run(char * flag) {
     if(strcmp(flag, "-c") == 0){
         semd = semget(KEY, 1, IPC_CREAT|0644);
         if(semd != 0) {
-            printf("Error: %s", strerror(errno));
+            printf("Error: %s\n\n", strerror(errno));
             return 1;
         }
         semctl(semd, 0, SETVAL, su); //Performing setval from su on the first semaphore in semd
