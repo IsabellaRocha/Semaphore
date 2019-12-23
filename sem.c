@@ -8,7 +8,7 @@ struct sembuf sb;
 int main(int argc, har *argv[]) {
     su.val = 1;sb.sem_num = 0;
     //sb.sem_flg = SEM_UNDO;
-    sb.sem_op = -1;
+    sb.sem_op = -1; //Down the semaphore
     run();
     return 0;
 }
@@ -38,7 +38,30 @@ int run() {
         printf("file created");
     }
     if(strcmp(args, "-r") == 0) {
-
+        printf("trying to get in");
+        semd = semget(KEY, 1, 0);
+        if (semd != 0) {
+            printf("Error: %s", strerror(errno));
+            return 1;
+        }
+        semop(semd, &sb, 1);
+        shmd = shmget(KEY, sizeof(char*), 0);
+        if (shmd != 0) {
+            printf("Error: %s", strerror(errno));
+            return 1;
+        }
+        printf("The story so far: \n");
+        int fd = open("tel.txt", O_RDONLY);
+        char output[SEG_SIZE];
+        read(fd, output, SEG_SIZE);
+        printf("%s", output);
+        close(fd);
+        shmctl(shmd, IPC_RMID, 0);
+        printf("\nshared memory removed\n");
+        remove("tel.txt");
+        printf("file removed\n");
+        semctl(semd, IPC_RMID, 0);
+        printf("semaphore removed");
     }
     if(strcmp(args, "-v") == 0) {
         printf("The story so far: \n");
@@ -48,4 +71,5 @@ int run() {
         printf("%s", output);
         close(fd);
     }
+    return 0;
 }

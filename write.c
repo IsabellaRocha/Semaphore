@@ -12,7 +12,7 @@ int main() {
 }
 
 int write() {
-    printf("trying to access resources");
+    printf("trying to get in");
     semd = semget(KEY, 1, 0);
     if (semd != 0) {
         printf("Error: %s", strerror(errno));
