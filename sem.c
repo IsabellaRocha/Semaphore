@@ -1,7 +1,4 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/shm.h>
-#include <sys/ipc.h>
+#include "sem.h"
 
 int main() {
     char * args;
