@@ -1,17 +1,17 @@
 #include "sem.h"
 
-int shmd, semd,
+int shmd, semd;
 struct sembuf sb;
 
 int main() {
   sb.sem_num = 0;
   //sb.sem_flg = SEM_UNDO;
   sb.sem_op = -1;
-  write();
+  my_write();
   return 0;
 }
 
-int write() {
+int my_write() {
     printf("trying to get in");
     semd = semget(KEY, 1, 0);
     if (semd != 0) {

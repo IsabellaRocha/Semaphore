@@ -1,12 +1,13 @@
 #include "sem.h"
 
-int shmd, semd,
+int shmd, semd;
 union semun su;
 struct sembuf sb;
 
 
-int main(int argc, har *argv[]) {
-    su.val = 1;sb.sem_num = 0;
+int main(int argc, char *argv[]) {
+    su.val = 1;
+    sb.sem_num = 0;
     //sb.sem_flg = SEM_UNDO;
     sb.sem_op = -1; //Down the semaphore
     run();
