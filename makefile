@@ -1,18 +1,12 @@
-ifeq ($(DEBUG), true)
-	CC = gcc -g
-else
-	CC = gcc
-endif
-
 all: control.o write.o
-	$(CC) -o control control.o
-	$(CC) -o write write.o
+	gcc -o control control.o
+	gcc -o write write.o
 
 control.o: control.c
-	$(CC) -c control.c
+	gcc -c control.c
 
 write.o: write.c
-	$(CC) -c write.c
+	gcc -c write.c
 
 clean:
 	rm *.o

@@ -2,6 +2,7 @@
 
 int shmd, semd;
 struct sembuf sb;
+int my_write();
 
 int main() {
   sb.sem_num = 0;
@@ -25,7 +26,7 @@ int my_write() {
         return 1;
     }
     int fd = open("tel.txt", O_WRONLY|O_APPEND);
-    char *line = shmat(shmd, SEG_SIZE, 0);
+    char *line = shmat(shmd, 0, 0);
     printf("Last addition: %s", line);
     char input[SEG_SIZE];
     fgets(input, SEG_SIZE, stdin);

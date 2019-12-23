@@ -3,6 +3,7 @@
 int shmd, semd;
 union semun su;
 struct sembuf sb;
+int run(char * flag);
 
 
 int main(int argc, char *argv[]) {
@@ -10,13 +11,12 @@ int main(int argc, char *argv[]) {
     sb.sem_num = 0;
     //sb.sem_flg = SEM_UNDO;
     sb.sem_op = -1; //Down the semaphore
-    run();
+    run(argv[1]);
     return 0;
 }
-int run() {
-    char * args;
-    fgets(args, 3, stdin);
-    if(strcmp(args, "-c") == 0){
+
+int run(char * flag) {
+    if(strcmp(flag, "-c") == 0){
         semd = semget(KEY, 1, IPC_CREAT|0644);
         if(semd != 0) {
             printf("Error: %s", strerror(errno));
@@ -38,7 +38,7 @@ int run() {
         close(fd);
         printf("file created");
     }
-    if(strcmp(args, "-r") == 0) {
+    if(strcmp(flag, "-r") == 0) {
         printf("trying to get in");
         semd = semget(KEY, 1, 0);
         if (semd != 0) {
@@ -64,7 +64,7 @@ int run() {
         semctl(semd, IPC_RMID, 0);
         printf("semaphore removed");
     }
-    if(strcmp(args, "-v") == 0) {
+    if(strcmp(flag, "-v") == 0) {
         printf("The story so far: \n");
         int fd = open("tel.txt", O_RDONLY);
         char output[SEG_SIZE];

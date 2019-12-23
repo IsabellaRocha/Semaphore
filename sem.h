@@ -11,7 +11,7 @@
 #include <sys/shm.h>
 
 #define KEY 24602
-#define SEG_SIZE 200
+#define SEG_SIZE 1024
 
 union semun {
   int              val;    /* Value for SETVAL */
@@ -20,6 +20,3 @@ union semun {
   struct seminfo  *__buf;  /* Buffer for IPC_INFO
                               (Linux-specific) */
 };
-
-int my_write();
-int run();
