@@ -4,12 +4,12 @@ else
 	CC = gcc
 endif
 
-all: sem.o write.o
-	$(CC) -o sem sem.o
+all: control.o write.o
+	$(CC) -o control control.o
 	$(CC) -o write write.o
 
-sem.o: sem.c
-	$(CC) -c sem.c
+control.o: control.c
+	$(CC) -c control.c
 
 write.o: write.c
 	$(CC) -c write.c
