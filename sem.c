@@ -41,6 +41,11 @@ int run() {
 
     }
     if(strcmp(args, "-v") == 0) {
-
+        printf("The story so far: \n");
+        int fd = open("tel.txt", O_RDONLY);
+        char output[SEG_SIZE];
+        read(fd, output, SEG_SIZE);
+        printf("%s", output);
+        close(fd);
     }
 }
