@@ -24,19 +24,19 @@ int run(char * flag) {
         }
         semctl(semd, 0, SETVAL, su); //Performing setval from su on the first semaphore in semd
         printf("semaphore created\n");
-        shmd = shmget(KEY, sizeof(char *), IPC_CREAT|0644);
-        if(shmd != 0) {
+        shmd = shmget(KEY, sizeof(char *), IPC_CREAT | 0644);
+        if(shmd < 0) {
             printf("Error: %s", strerror(errno));
             return 1;
         }
         printf("shared memory created\n");
         int fd = open("tel.txt", O_CREAT|O_TRUNC|O_RDWR, 0744);
-        if(fd != 0) {
+        if(fd < 0) {
             printf("Error: %s", strerror(errno));
             return 1;
         }
         close(fd);
-        printf("file created");
+        printf("file created\n\n");
     }
     if(strcmp(flag, "-r") == 0) {
         printf("trying to get in");
@@ -47,7 +47,7 @@ int run(char * flag) {
         }
         semop(semd, &sb, 1);
         shmd = shmget(KEY, sizeof(char*), 0);
-        if (shmd != 0) {
+        if (shmd < 0) {
             printf("Error: %s", strerror(errno));
             return 1;
         }

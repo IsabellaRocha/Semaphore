@@ -15,13 +15,13 @@ int main() {
 int my_write() {
     printf("trying to get in");
     semd = semget(KEY, 1, 0);
-    if (semd != 0) {
+    if (semd < 0) {
         printf("Error: %s", strerror(errno));
         return 1;
     }
     semop(semd, &sb, 1);
     shmd = shmget(KEY, sizeof(char*), 0);
-    if (shmd != 0) {
+    if (shmd < 0) {
         printf("Error: %s", strerror(errno));
         return 1;
     }
