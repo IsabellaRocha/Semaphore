@@ -38,7 +38,7 @@ int run(char * flag) {
         printf("file created\n\n");
     }
     if(strcmp(flag, "-r") == 0) {
-        printf("trying to get in");
+        printf("trying to get in"\n);
         semd = semget(KEY, 1, 0);
         if (semd < 0) {
             printf("Error: %s", strerror(errno));
@@ -66,7 +66,7 @@ int run(char * flag) {
         remove("tel.txt");
         printf("file removed\n");
         semctl(semd, IPC_RMID, 0);
-        printf("semaphore removed");
+        printf("semaphore removed\n\n");
     }
     if(strcmp(flag, "-v") == 0) {
         printf("The story so far: \n");
