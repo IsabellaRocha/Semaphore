@@ -38,7 +38,7 @@ int run(char * flag) {
         printf("file created\n\n");
     }
     if(strcmp(flag, "-r") == 0) {
-        printf("trying to get in"\n);
+        printf("trying to get in\n");
         semd = semget(KEY, 1, 0);
         if (semd < 0) {
             printf("Error: %s", strerror(errno));
