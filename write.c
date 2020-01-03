@@ -28,8 +28,8 @@ int my_write() {
     char *line = shmat(shmd, 0, 0);
     printf("Last addition: %s\n\n", line);
     char input[SEG_SIZE];
-    fgets(input, SEG_SIZE, stdin);
     printf("Your addition: ");
+    fgets(input, SEG_SIZE, stdin);
     write(fd, input, strlen(input));
     shmdt(input);
     close(fd);

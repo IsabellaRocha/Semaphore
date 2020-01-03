@@ -40,18 +40,23 @@ int run(char * flag) {
     if(strcmp(flag, "-r") == 0) {
         printf("trying to get in");
         semd = semget(KEY, 1, 0);
-        if (semd != 0) {
+        if (semd < 0) {
             printf("Error: %s", strerror(errno));
             return 1;
         }
+        printf("h");
         semop(semd, &sb, 1);
         shmd = shmget(KEY, sizeof(char*), 0);
         if (shmd < 0) {
             printf("Error: %s", strerror(errno));
             return 1;
         }
-        printf("The story so far: \n");
         int fd = open("tel.txt", O_RDONLY);
+        if(fd < 0) {
+            printf("Error: %s", strerror(errno));
+            return 1;
+        }
+        printf("The story so far: \n");
         char output[SEG_SIZE];
         read(fd, output, SEG_SIZE);
         printf("%s", output);
