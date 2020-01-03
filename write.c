@@ -2,6 +2,7 @@
 
 int shmd, semd;
 struct sembuf sb;
+int my_write();
 
 int main() {
   sb.sem_num = 0;

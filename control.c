@@ -3,6 +3,7 @@
 int shmd, semd;
 union semun su;
 struct sembuf sb;
+int run(char * flag);
 
 
 int main(int argc, char *argv[]) {
@@ -57,7 +58,11 @@ int run(char * flag) {
         }
         printf("The story so far: \n");
         char output[SEG_SIZE];
+        output[0] = '\0';
         read(fd, output, SEG_SIZE);
+        if (strlen(output) != 0) {
+            *(strrchr(output, '\n') + 1) = '\0';
+        }
         printf("%s", output);
         close(fd);
         shmctl(shmd, IPC_RMID, 0);
@@ -71,8 +76,12 @@ int run(char * flag) {
         printf("The story so far: \n");
         int fd = open("tel.txt", O_RDONLY);
         char output[SEG_SIZE];
+        output[0] = '\0';
         read(fd, output, SEG_SIZE);
-        printf("%s\n", output);
+        if (strlen(output) != 0) {
+            *(strrchr(output, '\n') + 1) = '\0';
+        }
+        printf("%s", output);
         close(fd);
     }
     return 0;
