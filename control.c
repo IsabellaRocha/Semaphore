@@ -38,13 +38,12 @@ int run(char * flag) {
         printf("file created\n\n");
     }
     if(strcmp(flag, "-r") == 0) {
-        printf("trying to get in\n");
+        printf("trying to get in\n\n");
         semd = semget(KEY, 1, 0);
         if (semd < 0) {
             printf("Error: %s", strerror(errno));
             return 1;
         }
-        printf("h");
         semop(semd, &sb, 1);
         shmd = shmget(KEY, sizeof(char*), 0);
         if (shmd < 0) {
@@ -73,7 +72,7 @@ int run(char * flag) {
         int fd = open("tel.txt", O_RDONLY);
         char output[SEG_SIZE];
         read(fd, output, SEG_SIZE);
-        printf("%s", output);
+        printf("%s\n", output);
         close(fd);
     }
     return 0;

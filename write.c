@@ -36,5 +36,6 @@ int my_write() {
     strcpy(line, input);
     sb.sem_op = 1;
     semop(semd, &sb, 1);
+    printf("\n");
     return 0;
 }
