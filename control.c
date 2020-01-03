@@ -3,7 +3,6 @@
 int shmd, semd;
 union semun su;
 struct sembuf sb;
-int run(char * flag);
 
 
 int main(int argc, char *argv[]) {
@@ -17,8 +16,8 @@ int main(int argc, char *argv[]) {
 
 int run(char * flag) {
     if(strcmp(flag, "-c") == 0){
-        semd = semget(KEY, 1, IPC_CREAT|0644);
-        if(semd != 0) {
+        semd = semget(KEY, 1, IPC_CREAT|IPC_EXCL|0644);
+        if(semd < 0) {
             printf("Error: %s\n\n", strerror(errno));
             return 1;
         }
