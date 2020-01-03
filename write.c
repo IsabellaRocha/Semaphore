@@ -12,7 +12,7 @@ int main() {
 }
 
 int my_write() {
-    printf("trying to get in");
+    printf("trying to get in\n");
     semd = semget(KEY, 1, 0);
     if (semd < 0) {
         printf("Error: %s", strerror(errno));
@@ -26,11 +26,11 @@ int my_write() {
     }
     int fd = open("tel.txt", O_WRONLY|O_APPEND);
     char *line = shmat(shmd, 0, 0);
-    printf("Last addition: %s", line);
+    printf("Last addition: %s\n\n", line);
     char input[SEG_SIZE];
     fgets(input, SEG_SIZE, stdin);
-    printf("Your addition: %s", input);
-    write(fd, input, SEG_SIZE);
+    printf("Your addition: ");
+    write(fd, input, strlen(input));
     shmdt(input);
     close(fd);
     strcpy(line, input);
